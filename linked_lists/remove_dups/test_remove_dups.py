@@ -81,3 +81,21 @@ class RemoveDupsTestCase(unittest.TestCase):
             linked_list,
             result
         )
+
+    def test_unsorted(self):
+        linked_list = remove_dups.LinkedList(
+            remove_dups.Node(2,
+            remove_dups.Node(1,
+            remove_dups.Node(2,
+            remove_dups.Node(3,
+            remove_dups.Node(3,
+            remove_dups.Node(1))))))
+        )
+        result = remove_dups.LinkedList(
+            remove_dups.Node(2, remove_dups.Node(1, remove_dups.Node(3)))
+        )
+        linked_list.remove_dups(False)
+        self.assertEqual(
+            linked_list,
+            result
+        )
