@@ -1,3 +1,9 @@
+"""
+Suppose that in this task we have list size
+and function return kth elem from last.
+So we can easily implement function that
+will calculate that the linked list is a palindrome
+"""
 class Node:
     def __init__(self, value, next_node=None):
         self.value = value
@@ -41,6 +47,13 @@ class LinkedList:
             size += 1
             n = n.next_node
         return size
+
+    def is_palindrome(self):
+        size = self.get_size()
+        for i in range(size // 2):
+            if self.return_kth_to_last(i) != self.return_kth_to_last(size - i - 1):
+                return False
+        return True
 
     def __str__(self):
         if self.head is None:
