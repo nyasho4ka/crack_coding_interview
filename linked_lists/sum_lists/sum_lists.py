@@ -53,11 +53,14 @@ class LinkedList:
     def __get_list_by_value(self, value):
         if value < 10:
             return LinkedList(Node(value))
-        head = LinkedList(Node(value % 10))
-        n = head
-        value /= 10
+        # Define head and update value
+        head = Node(value % 10)
+        value //= 10
+
+        node = head
         while value > 0:
-            next_node = Node(value % 10)
-            n.next_node = next_node
-            n = n.next_node
+            node.next_node = Node(value % 10)
+            value //= 10
+            node = node.next_node
+
         return LinkedList(head)
