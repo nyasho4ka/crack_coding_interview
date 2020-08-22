@@ -1,3 +1,4 @@
+import random
 from collections import deque
 
 
@@ -83,7 +84,6 @@ class Animal:
         self.kind = kind
 
 
-import random
 animal_types = ['cat', 'dog']
 animals = [Animal(random.choice(animal_types)) for i in range(10)]
 
