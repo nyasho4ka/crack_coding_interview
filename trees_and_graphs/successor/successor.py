@@ -4,7 +4,7 @@ import collections
 class Node:
     def __init__(self, value):
         self.value = value
-        self.length = 0
+        self.parent = None
         self.left = None
         self.right = None
 
@@ -12,38 +12,30 @@ class Node:
         if value > self.value:
             if self.right is None:
                 self.right = Node(value)
+                self.right.parent = self
                 return
             self.right.insert(value)
         else:
             if self.left is None:
                 self.left = Node(value)
+                self.left.parent = self
                 return
             self.left.insert(value)
 
-    def is_bst(self, node):
-        if node is None:
-            return
-        left_max = self.get_max(node.left)
-        right_min = self.get_min(node.right)
-        return left_max <= node.value < right_min
+    def get_successor(self, node):
+        if node.right is not None:
+            return node.right
 
-    def get_max(self, node):
-        if node is None:
-            return 0
+        if node.parent is None:
+            return None
 
-        left_max = self.get_max(node.left)
-        right_max = self.get_max(node.right)
-
-        return max(node.value, left_max, right_max)
-
-    def get_min(self, node):
-        if node is None:
-            return float('inf')
-
-        left_min = self.get_min(node.left)
-        right_min = self.get_min(node.right)
-
-        return min(node.value, left_min, right_min)
+        next_node = node.parent
+        while next_node.value < node.value:
+            # just go up to the parent and get successor
+            next_node = next_node.parent
+            if next_node is None:
+                return None
+        return next_node
 
     # FIX REPRESENTING ALGO
     def __str__(self):
@@ -65,4 +57,8 @@ tree.insert(10)
 tree.insert(11)
 tree.insert(12)
 tree.insert(4)
-print(tree.is_bst())
+
+node = tree.left
+while node is not None:
+    print('NODE: {}'.format(node.value))
+    node = tree.get_successor(node)
